@@ -33,5 +33,11 @@ public class App
 //        System.out.println(communication.getCookie());
 
         communication.saveUser(user);
+
+        user.setName("Thomas");
+        user.setLastName("Shelby");
+        communication.editUser(user);
+
+        communication.deleteUser(3L);
     }
 }

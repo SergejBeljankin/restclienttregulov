@@ -10,11 +10,13 @@ import ru.beljankin.restclient.entity.User;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Component
 public class Communication {
     private final String URL ="http://91.241.64.178:7081/api/users";
     private String cookie;
+    private String respose;
     private HttpHeaders httpHeaders;
 
     @Autowired
@@ -59,16 +61,62 @@ public class Communication {
 
         // Send request with POST method.
         ResponseEntity<String> responseEntity = restTemplate.postForEntity(URL, requestBody, String.class);
-
-        System.out.println(responseEntity.getHeaders().get(0));
-        System.out.println(responseEntity.getBody().toString());
+        respose = responseEntity.getBody();
+//        System.out.println(responseEntity.getHeaders().get(0));
+        System.out.println("1 :" + responseEntity.getBody());
 
 //        ResponseEntity<String> responseEntity = restTemplate.postForEntity(URL, user, String.class);
 //        System.out.println(responseEntity.getHeaders().get(0));;
 
     }
 
+    public void editUser(User user){
+        HttpHeaders headers = new HttpHeaders();
+        headers.setAccept(Arrays.asList(new MediaType[] { MediaType.APPLICATION_JSON }));
+        // Request to return JSON format
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        headers.set("Cookie", cookie);
+
+        RestTemplate restTemplate = new RestTemplate();
+
+        // Data attached to the request.
+        HttpEntity<User> requestBody = new HttpEntity<>(user, headers);
+
+        // Send request with POST method.
+        ResponseEntity<String> responseEntity = restTemplate.exchange(URL, HttpMethod.PUT,requestBody, String.class);
+        respose += responseEntity.getBody();
+        System.out.println("2 :" + responseEntity.getBody());
+
+    }
+
     public void deleteUser(Long id){
+        HttpHeaders headers = new HttpHeaders();
+        headers.setAccept(Arrays.asList(new MediaType[] { MediaType.APPLICATION_JSON }));
+        // Request to return JSON format
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        headers.set("Cookie", cookie);
+
+
+
+//
+//
+//
+//        Map<String, Long> params = new HashMap<>();
+//        params.put("id", id);
+//        HttpHeaders headers = new HttpHeaders();
+//        headers.add("Cookie", cookie);
+
+//        HttpEntity<String> entity = new HttpEntity(params, headers);
+
+        RestTemplate restTemplate = new RestTemplate();
+        HttpEntity<String> entity = new HttpEntity(headers);
+
+
+        // Send request with POST method.
+        ResponseEntity<String> responseEntity = restTemplate.exchange(URL + "/" + id, HttpMethod.DELETE, entity, String.class);
+        respose += responseEntity.getBody();
+        System.out.println("3 :" + responseEntity.getBody());
+        System.out.println("final :" + respose);
 
     }
 
