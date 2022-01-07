@@ -54,7 +54,7 @@ public class Communication {
         headers.setContentType(MediaType.APPLICATION_JSON);
         headers.set("Cookie", cookie);
 
-        RestTemplate restTemplate = new RestTemplate();
+//        RestTemplate restTemplate = new RestTemplate();
 
         // Data attached to the request.
         HttpEntity<User> requestBody = new HttpEntity<>(user, headers);
@@ -77,7 +77,7 @@ public class Communication {
         headers.setContentType(MediaType.APPLICATION_JSON);
         headers.set("Cookie", cookie);
 
-        RestTemplate restTemplate = new RestTemplate();
+//        RestTemplate restTemplate = new RestTemplate();
 
         // Data attached to the request.
         HttpEntity<User> requestBody = new HttpEntity<>(user, headers);
@@ -108,7 +108,7 @@ public class Communication {
 
 //        HttpEntity<String> entity = new HttpEntity(params, headers);
 
-        RestTemplate restTemplate = new RestTemplate();
+//        RestTemplate restTemplate = new RestTemplate();
         HttpEntity<String> entity = new HttpEntity(headers);
 
 
